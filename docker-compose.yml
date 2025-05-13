@@ -1,30 +1,30 @@
 services:
   privatebin:
-    container_name: ${PRIVATEBIN_CONTAINER_NAME:-privatebin_app}
-    image: ${PRIVATEBIN_IMAGE:-privatebin/nginx-fpm-alpine}:${PRIVATEBIN_VERSION:-latest}
-    restart: ${RESTART_POLICY:-always}
+    container_name: ${PRIVATEBIN_CONTAINER_NAME}
+    image: ${PRIVATEBIN_IMAGE_NAME}:${PRIVATEBIN_IMAGE_VERSION}
+    restart: ${RESTART_POLICY}
     read_only: true
     environment:
-      - TZ=${TIMEZONE:-Asia/Bangkok}
+      - TZ=${TIMEZONE}
     ports:
-      - ${APP_PORT:-8080}:8080
+      - ${PRIVATEBIN_HTTP_PORT}:8080
     volumes:
       - './data:/srv/data'
-      - './config/conf.php:/srv/cfg/conf.php:ro'
+      - './config/conf.php:/srv/cfg/cfg.php:ro'
     networks:
       - default
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
-      interval: ${HEALTHCHECK_INTERVAL:-30s}
-      timeout: ${HEALTHCHECK_TIMEOUT:-10s}
-      retries: ${HEALTHCHECK_RETRIES:-3}
+      interval: ${HEALTHCHECK_INTERVAL}
+      timeout: ${HEALTHCHECK_TIMEOUT}
+      retries: ${HEALTHCHECK_RETRIES}
 
 networks:
   default:
-    name: ${PRIVATEBIN_NETWORK_NAME:-privatebin_network}
+    name: ${PRIVATEBIN_CONTAINER_NAME}_network
     driver: bridge
 
 volumes:
   default:
-    name: ${PRIVATEBIN_VOLUME_NAME:-privatebin_data}
+    name: ${PRIVATEBIN_CONTAINER_NAME}_data
     driver: local
