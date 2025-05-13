@@ -8,7 +8,7 @@ PrivateBin is a minimalist, open-source, web-based pastebin where the server has
 
 ### 🏆 Run
 
-- [http://localhost:8055/](http://localhost:8055/)
+- [http://localhost:8080/](http://localhost:8080/)
 
 ```shell
 docker-compose up -d
